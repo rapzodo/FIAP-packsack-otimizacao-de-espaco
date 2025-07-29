@@ -1,6 +1,8 @@
 INVALID_SOLUTION_SCORE = 0
 
 def evaluate_fitness(individual, weights, values, capacity):
+    if not (len(individual) == len(weights) == len(values)):
+        raise ValueError("Input lists must have the same length.")
     total_weight = 0
     total_value = 0
     for index, gene in enumerate(individual):
