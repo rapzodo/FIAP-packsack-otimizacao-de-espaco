@@ -6,14 +6,14 @@ from ga.selection import tournament_selection, roulette_selection
 from ga.crossover import single_point_crossover, uniform_crossover
 from ga.mutation import bit_flip_mutation
 
-# Configuration parameters
-NUM_ITEMS = 10
-POPULATION_SIZE = 50
-GENERATIONS = 1000
-MUTATION_RATE = 0.1
-TOURNAMENT_SIZE = 3
-ELITISM_SIZE = 2
-KNAPSACK_CAPACITY = 50
+# Configuration parameters - Balanced for demonstration
+NUM_ITEMS = 50  # Challenging but manageable
+POPULATION_SIZE = 100  # Good diversity without performance issues
+GENERATIONS = 200
+MUTATION_RATE = 0.05
+TOURNAMENT_SIZE = 5
+ELITISM_SIZE = 5
+KNAPSACK_CAPACITY = 200  # Proportional to item count
 
 # Generate random items using Item class
 items = [Item(random.randint(1, 20), random.randint(1, 15)) for _ in range(NUM_ITEMS)]
