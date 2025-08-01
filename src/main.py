@@ -1,6 +1,6 @@
 import random
 import matplotlib.pyplot as plt
-from ga.fitness import evaluate_fitness
+from ga.fitness import evaluate_fitness, Item
 from ga.population import create_population
 from ga.selection import tournament_selection, roulette_selection
 from ga.crossover import single_point_crossover, uniform_crossover
@@ -9,14 +9,14 @@ from ga.mutation import bit_flip_mutation
 # Configuration parameters
 NUM_ITEMS = 10
 POPULATION_SIZE = 50
-GENERATIONS = 100
+GENERATIONS = 1000
 MUTATION_RATE = 0.1
 TOURNAMENT_SIZE = 3
 ELITISM_SIZE = 2
 KNAPSACK_CAPACITY = 50
 
-# Generate random items (value, weight)
-items = [(random.randint(1, 20), random.randint(1, 15)) for _ in range(NUM_ITEMS)]
+# Generate random items using Item class
+items = [Item(random.randint(1, 20), random.randint(1, 15)) for _ in range(NUM_ITEMS)]
 
 
 def calculate_population_fitness(population, items, capacity):
@@ -113,15 +113,15 @@ def display_results(best_solution, best_fitness, best_fitness_history, avg_fitne
     print(f"Best fitness achieved: {best_fitness}")
     print(f"Best solution: {best_solution}")
 
-    # Calculate solution details
-    total_weight = sum(items[i][1] for i, gene in enumerate(best_solution) if gene == 1)
+    # Calculate solution details using Item class attributes
+    total_weight = sum(items[i].weight for i, gene in enumerate(best_solution) if gene == 1)
     selected_items = [(i, items[i]) for i, gene in enumerate(best_solution) if gene == 1]
 
     print(f"Total weight: {total_weight}/{KNAPSACK_CAPACITY}")
     print(f"Weight utilization: {(total_weight/KNAPSACK_CAPACITY)*100:.1f}%")
-    print("\nSelected items (index: (value, weight)):")
-    for idx, (value, weight) in selected_items:
-        print(f"  Item {idx}: value={value}, weight={weight}")
+    print("\nSelected items:")
+    for idx, item in selected_items:
+        print(f"  Item {idx}: {item}")
 
     # Plot fitness evolution
     plt.figure(figsize=(10, 6))
