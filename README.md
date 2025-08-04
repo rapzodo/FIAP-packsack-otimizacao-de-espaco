@@ -194,7 +194,6 @@ Este projeto foi desenvolvido para o curso da **FIAP**, demonstrando:
 ## 👥 Colaboradores
 
 - **Danilo de Castro** - Desenvolvedor Principal - [danilocastro81@gmail.com]
-- **Copilot SWE Agent** - Assistente de Desenvolvimento
 
 ## 📄 Licença
 
