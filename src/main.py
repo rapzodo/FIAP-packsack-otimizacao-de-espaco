@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 
 from ga.fitness import evaluate_fitness, Item
 from ga.population import create_population
-from ga.selection import tournament_selection
 from src.ga.crossover import Crossover
 from src.ga.mutation import Mutation
 from src.ga.selection import roulette_selection
@@ -18,7 +17,7 @@ TOURNAMENT_SIZE = 5
 ELITISM_SIZE = 5
 KNAPSACK_CAPACITY = 200  # Proportional to item count
 
-# Generate random items using Item class
+# Generate random items
 items = [Item(random.randint(1, 20), random.randint(1, 15)) for _ in range(NUM_ITEMS)]
 
 
@@ -40,37 +39,30 @@ def genetic_algorithm():
     print(f"Mutation rate: {MUTATION_RATE}")
     print("-" * 50)
 
-    # Initialize population
     population = create_population(items)
 
-    # Track best solutions
     best_fitness_history = []
     avg_fitness_history = []
     best_solution = None
     best_fitness = 0
 
     for generation in range(GENERATIONS):
-        # Calculate fitness for all individuals
         fitness_scores = calculate_population_fitness(population, items, KNAPSACK_CAPACITY)
 
-        # Track statistics
         current_best_individual, current_best_fitness = get_best_individual(population, fitness_scores)
         avg_fitness = sum(fitness_scores) / len(fitness_scores)
 
         best_fitness_history.append(current_best_fitness)
         avg_fitness_history.append(avg_fitness)
 
-        # Update global best
         if current_best_fitness > best_fitness:
             best_fitness = current_best_fitness
             best_solution = current_best_individual.copy()
 
-        # Print progress
         if generation % 10 == 0 or generation == GENERATIONS - 1:
             print(f"Generation {generation:3d}: Best={current_best_fitness:3d}, Avg={avg_fitness:6.2f}")
 
 
-        # Create new population
         new_population = []
 
         # Elitism: keep best individuals
