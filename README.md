@@ -1,202 +1,211 @@
-# Knapsack Optimization with Genetic Algorithm
+# Otimização da Mochila com Algoritmo Genético
 
-A comprehensive genetic algorithm implementation for solving the knapsack optimization problem, developed as part of FIAP coursework.
+Uma implementação abrangente de algoritmo genético para resolver o problema de otimização da mochila, desenvolvido como parte do curso da FIAP.
 
-## 🎯 Project Overview
+## 🎯 Visão Geral do Projeto
 
-This project implements a genetic algorithm to solve the 0/1 knapsack problem, where the goal is to maximize the total value of selected items while staying within a weight capacity constraint. The implementation includes:
+Este projeto implementa um algoritmo genético para resolver o problema da mochila 0/1, onde o objetivo é maximizar o valor total dos itens selecionados mantendo-se dentro da restrição de capacidade de peso. A implementação inclui:
 
-- **Complete genetic algorithm workflow** with population initialization, selection, crossover, mutation, and elitism
-- **Real-time visualization** of fitness evolution over generations
-- **Comprehensive test suite** with 67 tests including brute force validation
-- **Clean, modular architecture** following software engineering best practices
+- **Fluxo completo de algoritmo genético** com inicialização da população, seleção, cruzamento, mutação e elitismo
+- **Visualização em tempo real** da evolução do fitness ao longo das gerações
+- **Suíte abrangente de testes** com 67 testes incluindo validação por força bruta
+- **Arquitetura modular e limpa** seguindo as melhores práticas de engenharia de software
 
-## 📦 Project Structure
+## 📦 Estrutura do Projeto
 
 ```
 FIAP-packsack-otimizacao-de-espaco/
 ├── src/
-│   ├── ga/                     # Genetic algorithm modules
-│   │   ├── crossover.py        # Crossover operations (one-point)
-│   │   ├── fitness.py          # Fitness evaluation and Item class
-│   │   ├── mutation.py         # Mutation operations (bit-flip)
-│   │   ├── population.py       # Population creation and management
-│   │   └── selection.py        # Selection methods (tournament, roulette)
-│   └── main.py                 # Main algorithm execution and visualization
-├── tests/                      # Comprehensive test suite (67 tests)
-│   ├── ga/                     # Unit tests for GA components
-│   │   ├── test_crossover.py   # Crossover function tests
-│   │   ├── test_fitness.py     # Fitness evaluation tests
-│   │   ├── test_mutation.py    # Mutation function tests
-│   │   ├── test_population.py  # Population creation tests
-│   │   └── test_selection.py   # Selection method tests
-│   └── test_main.py           # Integration tests and brute force validation
-├── requirements.txt           # Project dependencies
-├── pytest.ini               # Test configuration
-└── README.md                 # Project documentation
+│   ├── ga/                     # Módulos do algoritmo genético
+│   │   ├── crossover.py        # Operações de cruzamento (ponto único)
+│   │   ├── fitness.py          # Avaliação de fitness e classe Item
+│   │   ├── mutation.py         # Operações de mutação (bit-flip)
+│   │   ├── population.py       # Criação e gerenciamento da população
+│   │   └── selection.py        # Métodos de seleção (torneio, roleta)
+│   └── main.py                 # Execução principal do algoritmo e visualização
+├── tests/                      # Suíte abrangente de testes (67 testes)
+│   ├── ga/                     # Testes unitários para componentes do AG
+│   │   ├── test_crossover.py   # Testes das funções de cruzamento
+│   │   ├── test_fitness.py     # Testes de avaliação de fitness
+│   │   ├── test_mutation.py    # Testes das funções de mutação
+│   │   ├── test_population.py  # Testes de criação da população
+│   │   └── test_selection.py   # Testes dos métodos de seleção
+│   └── test_main.py           # Testes de integração e validação por força bruta
+├── requirements.txt           # Dependências do projeto
+├── pytest.ini               # Configuração de testes
+└── README.md                 # Documentação do projeto
 ```
 
-## 🚀 Getting Started
+## 🚀 Começando
 
-### Prerequisites
+### Pré-requisitos
 
-- Python 3.10 or higher
-- pip package manager
+- Python 3.10 ou superior
+- Gerenciador de pacotes pip
 
-### Installation
+### Instalação
 
-1. **Clone the repository:**
+1. **Clone o repositório:**
 ```bash
-git clone <repository-url>
+git clone https://github.com/rapzodo/FIAP-packsack-otimizacao-de-espaco
 cd FIAP-packsack-otimizacao-de-espaco
 ```
 
-2. **Create and activate virtual environment:**
+2. **Crie e ative o ambiente virtual:**
 ```bash
 python -m venv venv
 source venv/bin/activate        # Linux/Mac
-# or
+# ou
 venv\Scripts\activate          # Windows
 ```
 
-3. **Install dependencies:**
+3. **Instale as dependências:**
 ```bash
 pip install -r requirements.txt
 ```
 
-### Running the Application
+### Executando a Aplicação
 
-Execute the genetic algorithm:
+Execute o algoritmo genético:
 ```bash
 python src/main.py
 ```
 
-This will:
-- Generate a random knapsack problem (50 items, capacity 200)
-- Run the genetic algorithm for 200 generations
-- Display real-time progress in the console
-- Show a matplotlib visualization of fitness evolution
+Isso irá:
+- Gerar um problema de mochila aleatório (50 itens, capacidade 200)
+- Executar o algoritmo genético por 200 gerações
+- Exibir o progresso em tempo real no console
+- Mostrar uma visualização matplotlib da evolução do fitness
 
-### Algorithm Parameters
+### Parâmetros do Algoritmo
 
-The current configuration in `main.py`:
-- **Items**: 50 randomly generated items
-- **Population Size**: 100 individuals
-- **Generations**: 200
-- **Mutation Rate**: 5%
-- **Tournament Size**: 5
-- **Elitism**: Top 5 individuals preserved
-- **Knapsack Capacity**: 200 units
+A configuração atual em `main.py`:
+- **Itens**: 50 itens gerados aleatoriamente
+- **Tamanho da População**: 100 indivíduos
+- **Gerações**: 200
+- **Taxa de Mutação**: 5%
+- **Tamanho do Torneio**: 5
+- **Elitismo**: Top 5 indivíduos preservados
+- **Capacidade da Mochila**: 200 unidades
 
-## 🧪 Testing
+## 🧪 Testes
 
-### Running Tests
+### Executando os Testes
 
-Execute the complete test suite:
+Execute a suíte completa de testes:
 ```bash
 pytest tests/ -v
 ```
 
-Run specific test modules:
+Execute módulos de teste específicos:
 ```bash
-pytest tests/ga/test_fitness.py -v        # Fitness function tests
-pytest tests/test_main.py -v              # Integration tests
+pytest tests/ga/test_fitness.py -v        # Testes das funções de fitness
+pytest tests/test_main.py -v              # Testes de integração
 ```
 
-### Test Coverage
+### Cobertura de Testes
 
-The project includes **67 comprehensive tests**:
+O projeto inclui **67 testes abrangentes**:
 
-- **Unit Tests**: Individual GA component validation
-- **Integration Tests**: Complete algorithm workflow
-- **Brute Force Validation**: Verification against optimal solutions for small instances
-- **Edge Case Testing**: Error handling and boundary conditions
+- **Testes Unitários**: Validação individual dos componentes do AG
+- **Testes de Integração**: Fluxo completo do algoritmo
+- **Validação por Força Bruta**: Verificação contra soluções ótimas para instâncias pequenas
+- **Testes de Casos Extremos**: Tratamento de erros e condições de contorno
 
-**Test Results**: ✅ 67/67 tests passing (100% success rate)
+**Resultados dos Testes**: ✅ 67/67 testes aprovados (100% de taxa de sucesso)
 
-## 🧬 Genetic Algorithm Components
+## 🧬 Componentes do Algoritmo Genético
 
-### 1. **Representation**
-- **Encoding**: Binary strings where 1 = item selected, 0 = item not selected
-- **Item Class**: Each item has value and weight attributes
+### 1. **Representação**
+- **Codificação**: Strings binárias onde 1 = item selecionado, 0 = item não selecionado
+- **Classe Item**: Cada item possui atributos de valor e peso
 
-### 2. **Selection Methods**
-- **Tournament Selection**: Selects best individual from random tournament
-- **Roulette Selection**: Probability-based selection proportional to fitness
+### 2. **Métodos de Seleção**
+- **Seleção por Torneio**: Seleciona o melhor indivíduo de um torneio aleatório
+- **Seleção por Roleta**: Seleção baseada em probabilidade proporcional ao fitness
 
-### 3. **Crossover**
-- **One-Point Crossover**: Single random crossover point
+### 3. **Cruzamento**
+- **Cruzamento de Ponto Único**: Ponto de cruzamento aleatório único
 
-### 4. **Mutation**
-- **Bit-Flip Mutation**: Random bit flipping with configurable probability
+### 4. **Mutação**
+- **Mutação Bit-Flip**: Inversão aleatória de bits com probabilidade configurável
 
-### 5. **Fitness Function**
-- Maximizes total value of selected items
-- Returns 0 for solutions exceeding weight capacity
-- Validates against negative values/weights
+### 5. **Função de Fitness**
+- Maximiza o valor total dos itens selecionados
+- Retorna 0 para soluções que excedem a capacidade de peso
+- Valida contra valores/pesos negativos
 
 ## 📊 Performance
 
-The genetic algorithm demonstrates excellent performance:
+O algoritmo genético demonstra excelente performance:
 
-- **Solution Quality**: Finds solutions within 10-20% of optimal for small instances
-- **Convergence**: Shows consistent improvement over generations
-- **Efficiency**: Handles 50-item problems in under 1 second
-- **Scalability**: Tested with up to 100 items successfully
+- **Qualidade da Solução**: Encontra soluções dentro de 10-20% do ótimo para instâncias pequenas
+- **Convergência**: Mostra melhoria consistente ao longo das gerações
+- **Eficiência**: Lida com problemas de 50 itens em menos de 1 segundo
+- **Escalabilidade**: Testado com sucesso com até 100 itens
 
-## 🛠️ Development
+## 🛠️ Desenvolvimento
 
-### Code Quality
-- **Clean Architecture**: Modular design with clear separation of concerns
-- **Type Safety**: Proper type hints throughout the codebase
-- **Documentation**: Self-documenting code with meaningful names
-- **Testing**: Comprehensive test coverage with multiple validation approaches
+### Qualidade do Código
+- **Arquitetura Limpa**: Design modular com clara separação de responsabilidades
+- **Segurança de Tipos**: Type hints adequados em todo o código
+- **Documentação**: Código autodocumentado com nomes significativos
+- **Testes**: Cobertura abrangente de testes com múltiplas abordagens de validação
 
-### Dependencies
+### Dependências
 ```
-matplotlib==3.8.0    # Visualization
-numpy==1.24.3        # Numerical operations
-pytest==8.4.1        # Testing framework
+matplotlib==3.8.0    # Visualização
+numpy==1.24.3        # Operações numéricas
+pytest==8.4.1        # Framework de testes
 ```
 
-## 📈 Example Output
+## 📈 Exemplo de Saída
 
 ```
-=== Knapsack Optimization with Genetic Algorithm ===
-Knapsack capacity: 200
-Population size: 100
-Generations: 200
-Mutation rate: 0.05
+=== Otimização da Mochila com Algoritmo Genético ===
+Capacidade da mochila: 200
+Tamanho da população: 100
+Gerações: 200
+Taxa de mutação: 0.05
 --------------------------------------------------
-Generation   0: Best=156, Avg= 89.23
-Generation  10: Best=178, Avg=134.56
-Generation  20: Best=189, Avg=156.78
+Geração   0: Melhor=156, Média= 89.23
+Geração  10: Melhor=178, Média=134.56
+Geração  20: Melhor=189, Média=156.78
 ...
-Generation 200: Best=195, Avg=182.34
+Geração 200: Melhor=195, Média=182.34
 
 ==================================================
-RESULTS
+RESULTADOS
 ==================================================
-Best fitness achieved: 195
-Total weight: 198/200
-Weight utilization: 99.0%
-Selected items: 23 out of 50
+Melhor fitness alcançado: 195
+Peso total: 198/200
+Utilização do peso: 99.0%
+Itens selecionados: 23 de 50
 ```
 
-## 🎓 Academic Context
+## 🎓 Contexto Acadêmico
 
-This project was developed for **FIAP** coursework, demonstrating:
-- Genetic algorithm implementation
-- Software engineering best practices
-- Comprehensive testing methodologies
-- Real-world optimization problem solving
+Este projeto foi desenvolvido para o curso da **FIAP**, demonstrando:
+- Implementação de algoritmos genéticos
+- Melhores práticas de engenharia de software
+- Metodologias abrangentes de testes
+- Resolução de problemas de otimização do mundo real
 
-## 📄 License
+## 👥 Colaboradores
 
-This project is developed for educational purposes as part of FIAP coursework.
+- **Danilo de Castro** - [danilocastro81@gmail.com]
+- **Aaron Lesbão Dumont** - [aarondmt@gmail.com]
+- **Pedro Gomes** - [pedro.gomesf2004@gmail.com]
+- **Ygor Sousa**
+- **Gabriel Marinho** - [gabriiel.fmarinho@gmail.com]
+
+## 📄 Licença
+
+Este projeto é desenvolvido para fins educacionais como parte do curso da FIAP.
 
 ---
 
-**Developed by**: Danilo de Castro  
-**Institution**: FIAP  
-**Course**: Optimization Algorithms
+**Desenvolvido por**: Danilo de Castro  
+**Instituição**: FIAP  
+**Curso**: Algoritmos de Otimização  
+**Repositório**: [rapzodo/FIAP-packsack-otimizacao-de-espaco](https://github.com/rapzodo/FIAP-packsack-otimizacao-de-espaco)
