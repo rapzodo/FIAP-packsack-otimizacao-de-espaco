@@ -1,4 +1,4 @@
-# FIAP Packsack - Otimização de Espaço com Algoritmo Genético
+# KnapSack - Otimização de Espaço com Algoritmo Genético
 
 Este projeto implementa um algoritmo genético para resolver o problema da mochila (knapsack), com o objetivo de otimizar o uso do espaço e maximizar o valor dos itens selecionados dentro de uma capacidade limitada.
 
