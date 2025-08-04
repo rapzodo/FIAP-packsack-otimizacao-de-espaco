@@ -204,8 +204,6 @@ Este projeto foi desenvolvido para o curso da **FIAP**, demonstrando:
 Este projeto é desenvolvido para fins educacionais como parte do curso da FIAP.
 
 ---
-
-**Desenvolvido por**: Danilo de Castro  
 **Instituição**: FIAP  
 **Curso**: Algoritmos de Otimização  
 **Repositório**: [rapzodo/FIAP-packsack-otimizacao-de-espaco](https://github.com/rapzodo/FIAP-packsack-otimizacao-de-espaco)
