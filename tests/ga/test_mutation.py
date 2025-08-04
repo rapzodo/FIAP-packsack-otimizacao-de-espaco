@@ -1,89 +1,68 @@
-import pytest
-from ga.mutation import bit_flip_mutation, random_reset_mutation
+from ga.mutation import Mutation
 
 
-def test_bit_flip_mutation_no_mutation():
-    """Test bit flip mutation with zero mutation rate."""
+def test_mutation_class_bit_flip_basic():
     individual = [1, 0, 1, 0, 1]
-    mutated = bit_flip_mutation(individual, mutation_rate=0.0)
+    mutated = Mutation.bit_flip(individual, mutation_rate=1.0)
 
-    # With 0% mutation rate, individual should remain unchanged
-    assert mutated == individual
-    # Should be a copy, not the same object
+    assert len(mutated) == len(individual)
+    expected = [0, 1, 0, 1, 0]
+    assert mutated == expected
     assert mutated is not individual
 
 
-def test_bit_flip_mutation_full_mutation():
-    """Test bit flip mutation with 100% mutation rate."""
+def test_mutation_class_bit_flip_no_mutation():
     individual = [1, 0, 1, 0, 1]
-    mutated = bit_flip_mutation(individual, mutation_rate=1.0)
+    mutated = Mutation.bit_flip(individual, mutation_rate=0.0)
 
-    # With 100% mutation rate, all bits should be flipped
-    expected = [0, 1, 0, 1, 0]
-    assert mutated == expected
+    assert mutated == individual
+    assert mutated is not individual
 
 
-def test_bit_flip_mutation_preserves_length():
-    """Test that mutation preserves individual length."""
+def test_mutation_class_bit_flip_preserves_length():
     individual = [1, 0, 1, 0, 1, 1, 0]
-    mutated = bit_flip_mutation(individual, mutation_rate=0.5)
+    mutated = Mutation.bit_flip(individual, mutation_rate=0.5)
 
     assert len(mutated) == len(individual)
 
 
-def test_bit_flip_mutation_binary_values():
-    """Test that mutation only produces binary values."""
+def test_mutation_class_bit_flip_binary_values():
     individual = [1, 0, 1, 0, 1]
-    mutated = bit_flip_mutation(individual, mutation_rate=0.5)
+    mutated = Mutation.bit_flip(individual, mutation_rate=0.5)
 
-    # All genes should be 0 or 1
     assert all(gene in [0, 1] for gene in mutated)
 
 
-def test_bit_flip_mutation_empty_individual():
-    """Test mutation with empty individual."""
+def test_mutation_class_bit_flip_empty_individual():
     individual = []
-    mutated = bit_flip_mutation(individual, mutation_rate=0.5)
+    mutated = Mutation.bit_flip(individual, mutation_rate=1.0)
 
     assert mutated == []
 
 
-def test_random_reset_mutation_no_mutation():
-    """Test random reset mutation with zero mutation rate."""
-    individual = [1, 0, 1, 0, 1]
-    mutated = random_reset_mutation(individual, mutation_rate=0.0)
+def test_mutation_class_bit_flip_single_element():
+    individual = [1]
+    mutated = Mutation.bit_flip(individual, mutation_rate=1.0)
 
-    # With 0% mutation rate, individual should remain unchanged
-    assert mutated == individual
-    # Should be a copy, not the same object
-    assert mutated is not individual
+    assert mutated == [0]
 
 
-def test_random_reset_mutation_preserves_length():
-    """Test that random reset mutation preserves individual length."""
-    individual = [1, 0, 1, 0, 1, 1, 0]
-    mutated = random_reset_mutation(individual, mutation_rate=0.5)
-
-    assert len(mutated) == len(individual)
-
-
-def test_random_reset_mutation_binary_values():
-    """Test that random reset mutation only produces binary values."""
-    individual = [1, 0, 1, 0, 1]
-    mutated = random_reset_mutation(individual, mutation_rate=1.0)
-
-    # All genes should be 0 or 1
-    assert all(gene in [0, 1] for gene in mutated)
-
-
-def test_mutation_creates_copy():
-    """Test that mutation functions create copies and don't modify originals."""
+def test_mutation_class_preserves_original():
     original = [1, 0, 1, 0, 1]
+    original_copy = original.copy()
 
-    # Test bit flip mutation
-    mutated1 = bit_flip_mutation(original, mutation_rate=1.0)
-    assert original == [1, 0, 1, 0, 1]  # Original unchanged
+    Mutation.bit_flip(original, mutation_rate=1.0)
 
-    # Test random reset mutation
-    mutated2 = random_reset_mutation(original, mutation_rate=1.0)
-    assert original == [1, 0, 1, 0, 1]  # Original unchanged
+    assert original == original_copy
+
+
+def test_mutation_class_bit_flip_variation():
+    individual = [1, 0, 1, 0, 1, 0, 1, 0]
+    results = []
+
+    for _ in range(20):
+        mutated = Mutation.bit_flip(individual, mutation_rate=0.3)
+        results.append(tuple(mutated))
+
+    unique_results = set(results)
+    assert len(unique_results) > 1

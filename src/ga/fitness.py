@@ -15,16 +15,21 @@ def evaluate_fitness(individual, items, capacity):
     Evaluate fitness for knapsack problem.
     Args:
         individual: binary list representing which items to include
-        items: list of Item objects
+        items: list of Item objects (must have positive values and weights)
         capacity: maximum weight capacity of knapsack
     Returns:
-        total value if within capacity, otherwise INVALID_SOLUTION_SCORE
+        total value if within capacity and valid, otherwise INVALID_SOLUTION_SCORE
     """
     if not (len(individual) == len(items)):
         raise ValueError("Input lists must have the same length.")
 
     if not individual:  # Empty individual
         return INVALID_SOLUTION_SCORE
+
+    # Validate items - negative values or weights are invalid
+    for item in items:
+        if item.value < 0 or item.weight < 0:
+            return INVALID_SOLUTION_SCORE
 
     total_weight = 0
     total_value = 0

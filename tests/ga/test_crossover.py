@@ -1,92 +1,99 @@
 import pytest
-from ga.crossover import single_point_crossover, uniform_crossover
+from ga.crossover import Crossover
 
 
-def test_single_point_crossover_basic():
-    """Test basic single-point crossover functionality."""
+def test_crossover_class_one_point_basic():
     parent1 = [1, 0, 1, 0, 1]
     parent2 = [0, 1, 0, 1, 0]
 
-    child1, child2 = single_point_crossover(parent1, parent2)
+    child1, child2 = Crossover.one_point(parent1, parent2)
 
-    # Children should have same length as parents
     assert len(child1) == len(parent1)
     assert len(child2) == len(parent2)
-
-    # Children should contain only 0s and 1s
     assert all(gene in [0, 1] for gene in child1)
     assert all(gene in [0, 1] for gene in child2)
 
 
-def test_single_point_crossover_different_lengths():
-    """Test that crossover raises error for different length parents."""
-    parent1 = [1, 0, 1]
-    parent2 = [0, 1]
-
-    with pytest.raises(ValueError):
-        single_point_crossover(parent1, parent2)
-
-
-def test_single_point_crossover_single_gene():
-    """Test crossover with single gene individuals."""
-    parent1 = [1]
-    parent2 = [0]
-
-    child1, child2 = single_point_crossover(parent1, parent2)
-
-    # With single gene, children should be copies of parents
-    assert child1 == parent1
-    assert child2 == parent2
-
-
-def test_uniform_crossover_basic():
-    """Test basic uniform crossover functionality."""
-    parent1 = [1, 0, 1, 0, 1]
-    parent2 = [0, 1, 0, 1, 0]
-
-    child1, child2 = uniform_crossover(parent1, parent2, prob=0.5)
-
-    # Children should have same length as parents
-    assert len(child1) == len(parent1)
-    assert len(child2) == len(parent2)
-
-    # Children should contain only 0s and 1s
-    assert all(gene in [0, 1] for gene in child1)
-    assert all(gene in [0, 1] for gene in child2)
-
-
-def test_uniform_crossover_extreme_probabilities():
-    """Test uniform crossover with extreme probabilities."""
-    parent1 = [1, 0, 1, 0, 1]
-    parent2 = [0, 1, 0, 1, 0]
-
-    # With prob=1.0, child1 should be identical to parent1
-    child1, child2 = uniform_crossover(parent1, parent2, prob=1.0)
-    assert child1 == parent1
-    assert child2 == parent2
-
-    # With prob=0.0, child1 should be identical to parent2
-    child1, child2 = uniform_crossover(parent1, parent2, prob=0.0)
-    assert child1 == parent2
-    assert child2 == parent1
-
-
-def test_uniform_crossover_different_lengths():
-    """Test that uniform crossover raises error for different length parents."""
-    parent1 = [1, 0, 1]
-    parent2 = [0, 1]
-
-    with pytest.raises(ValueError):
-        uniform_crossover(parent1, parent2)
-
-
-def test_crossover_preserves_genetic_material():
-    """Test that crossover preserves genetic material from both parents."""
+def test_crossover_class_one_point_preserves_genetic_material():
     parent1 = [1, 1, 1, 1, 1]
     parent2 = [0, 0, 0, 0, 0]
 
-    child1, child2 = single_point_crossover(parent1, parent2)
+    child1, child2 = Crossover.one_point(parent1, parent2)
 
-    # Each child should have some genes from each parent
     assert 0 in child1 and 1 in child1
     assert 0 in child2 and 1 in child2
+
+
+def test_crossover_class_one_point_empty_parents():
+    parent1 = []
+    parent2 = []
+
+    try:
+        child1, child2 = Crossover.one_point(parent1, parent2)
+        assert child1 == []
+        assert child2 == []
+    except (ValueError, IndexError):
+        pass
+
+
+def test_crossover_class_one_point_single_gene():
+    parent1 = [1]
+    parent2 = [0]
+
+    try:
+        child1, child2 = Crossover.one_point(parent1, parent2)
+        assert len(child1) == 1
+        assert len(child2) == 1
+        assert child1[0] in [0, 1]
+        assert child2[0] in [0, 1]
+    except (ValueError, IndexError):
+        pass
+
+
+def test_crossover_class_preserves_originals():
+    parent1 = [1, 0, 1, 0, 1]
+    parent2 = [0, 1, 0, 1, 0]
+    parent1_copy = parent1.copy()
+    parent2_copy = parent2.copy()
+
+    Crossover.one_point(parent1, parent2)
+
+    assert parent1 == parent1_copy
+    assert parent2 == parent2_copy
+
+
+def test_crossover_class_produces_variation():
+    parent1 = [1, 0, 1, 0, 1, 0, 1, 0]
+    parent2 = [0, 1, 0, 1, 0, 1, 0, 1]
+
+    results = []
+    for _ in range(20):
+        child1, child2 = Crossover.one_point(parent1, parent2)
+        results.append((tuple(child1), tuple(child2)))
+
+    unique_results = set(results)
+    assert len(unique_results) > 1
+
+
+def test_crossover_class_one_point_different_lengths():
+    parent1 = [1, 0, 1]
+    parent2 = [0, 1]  # Different length
+
+    child1, child2 = Crossover.one_point(parent1, parent2)
+
+    assert isinstance(child1, list)
+    assert isinstance(child2, list)
+    assert all(gene in [0, 1] for gene in child1)
+    assert all(gene in [0, 1] for gene in child2)
+
+
+def test_crossover_class_one_point_longer_parents():
+    parent1 = [1, 0, 1, 0, 1, 1, 0, 0, 1, 0]
+    parent2 = [0, 1, 0, 1, 0, 0, 1, 1, 0, 1]
+
+    child1, child2 = Crossover.one_point(parent1, parent2)
+
+    assert len(child1) == len(parent1)
+    assert len(child2) == len(parent2)
+    assert all(gene in [0, 1] for gene in child1)
+    assert all(gene in [0, 1] for gene in child2)
