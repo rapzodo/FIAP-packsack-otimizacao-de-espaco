@@ -196,7 +196,7 @@ Este projeto foi desenvolvido para o curso da **FIAP**, demonstrando:
 - **Danilo de Castro** - [danilocastro81@gmail.com]
 - **Aaron Lesbão Dumont** - [aarondmt@gmail.com]
 - **Pedro Gomes** - [pedro.gomesf2004@gmail.com]
-- **Ygor Sousa** - Funções de seleção (Torneio e Roleta)
+- **Ygor Sousa**
 - **Gabriel Marinho** - [gabriiel.fmarinho@gmail.com]
 
 ## 📄 Licença
